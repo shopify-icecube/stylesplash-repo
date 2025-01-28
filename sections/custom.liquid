@@ -1,0 +1,23 @@
+
+<h1>{{ section.settings.title }}</h1>
+
+{%  schema  %} 
+
+{
+    "name": "custom section",
+    "settings": [
+        {
+            "id":"title",
+            "type": "text",
+            "label": "Enter Text Here",
+            "default":"Title"
+        }
+    ],
+    "presets": [
+        {
+            "name": "custom section"
+        }
+    ]
+}
+
+ {% endschema %}
