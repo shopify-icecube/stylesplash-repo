@@ -1,0 +1,229 @@
+<div data-section-id="{{ section.id }}" class="headertop">    
+  <header class="site-header">
+      <div id="header-landing">
+
+
+{% if section.settings.display_top_bar %}
+<div class="headtop hidden-xs hidden-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 hidden-sm hidden-xs headleft">
+        {% if section.settings.display_wishlist %}
+          <li class="topws">{% include 'wish-list' %}</li>
+        {% endif %}
+          <li class="appcry">{% include 'bold-common' %}{%- include 'bold-currency-picker-mount', openDirection: 'down' -%}</li>
+        {% if section.settings.headmobile != blank %}
+          <li class="headphone">{% include 'icon-headmobile' %} {{ section.settings.headmobile }}</li>
+        {% endif %}
+      </div>
+      <div class="col-sm-6 text-right">
+        {% if section.settings.offerhead != blank %}
+         <p>{{ section.settings.offerhead }}</p>
+          {% endif %}
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endif %}
+            <div class="headernav">
+            <div class="header-top container">
+              <div class="row">
+	          	{% include 'top-bar' %}
+            	<div class="col-lg-2 col-md-2 col-sm-3 col-xs-4 hlogo text-left">{% include 'logo' %}</div>
+               	<div class="col-lg-10 col-md-10 col-sm-8 col-xs-12 homesearch text-right">
+               <div class="col-lg-10 col-md-10 col-sm-6 col-xs-12 homemenu text-center hidden-xs hidden-sm"></div>
+                <div class="rightac wscur">
+               
+				{% comment %}<li class="abc">currr</li>{% endcomment %}
+				{% if section.settings.display_search %}    
+                <li class="header-search desktop-search">
+                   <div class="d-search" onclick="openSearch()">
+                      <button class="search-toggle search-header__submit search__submit btn--link" type="submit"id="search_toggle"  data-toggle="collapse">
+                        {% include 'icon-search' %}
+                       {% comment %} <span class="icon__fallback-text">{{ 'general.search.submit' | t }}</span>{% endcomment %}
+                      </button>
+                   </div>
+                
+                 <div id="search" class="input-group wbSearch" >
+                  <form action="/search" method="get" class="search-header search" role="search">
+                        <div id="search_block_top">
+                         <input class="search_query search-header__input search__input"
+                          type="search"
+                          name="q"
+                          placeholder="{{ 'general.search.placeholder' | t }}"
+                          aria-label="{{ 'general.search.placeholder' | t }}">
+                          <button type="submit" class="text-link top-header__link top-header__search-submit">
+                               <span class="hidden-xs">{{ 'general.search.submit' | t }}</span>
+                               <span class="hidden-md hidden-lg hidden-sm"><i class="fa fa-search"></i></span>
+                          </button>
+                      
+                          <a href="javascript:void(0)" class="closebtn close-nav" onclick="closeSearch()">{% include 'icon-close' %}</a></div>
+                  </form>
+                  </div>
+                </li>
+				<script type="text/javascript">
+				function openSearch() {
+				    $('body').addClass("active-search");
+				    $('#search').addClass("sideb");
+				     $('.search_query').attr('autofocus', 'autofocus').focus();
+				}
+				function closeSearch() {    
+				    $('body').removeClass("active-search");
+				    $('.search_query').attr('autofocus', 'autofocus').focus();
+				}
+				</script> 
+				{% endif %}
+
+				<li class="slidedown_section dropdown">
+                    <a class="dropdown-toggle hmuser" data-toggle="dropdown">
+                      <div class="userdrop">
+                      	<span class="svgbg">{% include 'icon-login' %}</span>
+                      </div>
+                    </a>
+                    <div id="" class="dropdown-menu dropdown-menu-right">
+                      <div class="header-panel-top">
+                  <div class="customer_account text-left">
+                    <ul class="list-unstyled">
+                {% if customer %}
+                <li>
+                  <a href="/account">
+                    <i class="fa fa-user"></i>
+                    {{ 'layout.customer.account' | t }}
+                  </a>
+                </li>
+                <li>
+                  <a href="/account/logout">
+                   <i class="fa fa-sign-out"></i>
+                    {{ 'layout.customer.log_out' | t }}
+                  </a>
+                </li>
+                {% else %}
+                <li>
+                  <a href="/account/login">
+                    <i class="fa fa-lock"></i>
+                    {{ 'layout.customer.log_in' | t }}
+                  </a>
+                </li>
+                <li>
+                  <a href="/account/register" title="{{ 'layout.customer.create_accounthome' | t }}">
+                    <i class="fa fa-user"></i>
+                  {{ 'layout.customer.create_accounthome' | t }}
+                  </a>
+                </li>
+                {% endif %}
+                
+              </ul>
+                  </div>
+                  </div>
+                </div>
+                 </li>
+
+                <li class="header-bar__module cart header_cart xsheader">
+                  {% if section.settings.display_minicart %}
+                  {% include 'mini-cart' %}
+                  {% endif %} 
+                </li> 
+               </div>
+
+               </div>
+              </div>
+           </div>
+      </div>
+      </div>
+  </header>
+   <style> 
+      .headtop{ background-color:{{ section.settings.topbar_color }};}
+
+    /* Menu  block */     
+    .headertop .menu-tool ul li {color: {{ section.settings.menubar_text }};} 
+    /* Search block */     
+     .headertop .header-search span,.headertop .search-bar__form button.res_btn  {color:{{section.settings.search_icon}};} 
+     .headertop .header-search span:hover,.headertop .search-bar__form button.res_btn:hover {color:{{section.settings.search_icon_hover }};} 
+     .headertop .header-search input[type="text"] { margin-bottom: 0; border-radius: 4px 0 0 4px; border:1px solid #eee;height: 40px; background:{{section.settings.search_bg }};}
+     .headertop .header-search .btn {min-width: 110px; height: 40px; border-radius: 0 4px 4px 0; color:{{section.settings.Btn_text }};background:{{ section.settings.search_btn_bg }};}
+     .headertop .header-search .btn:hover { color:{{section.settings.search_btn_hover }};background:{{ section.settings.search_btn_bghover }};}
+     .headertop .search-bar__form button.res_btn { background:none;border:none;height:auto; }
+     
+     
+     
+     /* Cart Summary block */
+    .headertop .product-details p{
+      font-size: 12px; margin-bottom: 0;padding: 0
+    }
+    
+     .headertop #slidedown-cart li { border-bottom:1px solid #eee; }
+
+
+     /* Currency block */
+     
+     .headertop .select-selected.select-arrow-active:after { border-color: transparent transparent {{ section.settings.currency_icon }} transparent; }
+     .headertop .select-selected:after {  border-color: {{ section.settings.currency_icon }} transparent transparent transparent;}
+    .headertop .header_currency ul li.currency:after { border-top-color: {{ section.settings.currency_icon }}; }
+    .headertop .tbl-list>li.currency>.dropdown-toggle:hover  {color: {{ section.settings.currency_icon_hover }};}
+   .headertop .select-selected {color: {{ section.settings.currency_link }};}
+    .headertop .select-selected:hover {color:{{section.settings.currency_hover_link }};}  
+      
+       /* Header borders */
+    .headertop .site-nav>li>a:before {background: {{ section.settings.border_between_bars}}; }
+  
+      </style> 
+</div>
+
+{% schema %}
+{
+"name": "Header",
+"settings": [
+  {
+  "type":"checkbox",
+  "id": "display_top_bar",
+  "label": "Display topbar" 
+  },
+  {
+  "type":"checkbox",
+  "id": "display_currency",
+  "label": "Display Currency" 
+  },
+  {
+  "type":"checkbox",
+  "id": "display_search",
+  "label": "Display Search" 
+  },
+
+   {
+  "type": "checkbox",
+  "id": "display_minicart",
+  "label": "Display minicart"
+  },
+
+  {
+  "type": "checkbox",
+  "id": "display_wishlist",
+  "label": "Display wishlist"
+  },
+  {
+  "type": "text",
+  "id": "offerhead",
+  "label": "Offer",
+  "default": "Get free shipping – Free 30 Day Money Back Guarantee"
+  },
+  {
+  "type": "color",
+  "id": "topbar_color",
+  "label": "Topbar Background",
+  "default": "#fff"
+  },
+  {
+  "type": "text",
+  "id": "headmobile",
+  "label": "Mobile:",
+  "default": "+123 4567 890"
+  }
+
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+

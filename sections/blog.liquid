@@ -1,0 +1,163 @@
+<div data-section-id="{{ section.id }}" class="wbblog">
+<div class="blog-post container">  
+  {% if section.settings.title != blank %}
+    <h1 class="heading text-center"><span class="hspan"><span>{{ section.settings.title }}</span></span></h1>
+  {% endif %} 
+      <div class="row prodm">
+        <div class="owlblog owl-carousel owl-theme">        
+         {% for article in blogs[section.settings.pick_featured_blog].articles   %}   
+        <div class="articleblog">
+          <div class="blogbdr">
+            <div class="home-blog-image col-sm-4 col-xs-12">
+              {% if article.image %}
+              <a href="{{ article.url }}">
+              <img src="{{ article.image.src | img_url: 'grande' }}" alt="{{ article.title }}" class="img-responsive center-block" />
+              </a>
+              {% endif %}
+
+            </div>
+              
+              <div class="blogdes col-sm-8 col-xs-12">
+
+                <div class="dattime">
+                {% if section.settings.show_featured_date %}   
+                  <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}"><span class="date">{{ article.published_at | date: '%b %d, %Y' }}</span></time>        
+                {% endif %}
+                
+                {% if article.comments_enabled? %}
+                {% assign number_of_comments = article.comments_count %}
+                {% if section.settings.blog_comment %}
+                  <span class="bcmt"><i class="fa fa-comments"></i> {{  number_of_comments }} {{ 'blogs.comments.comments' | t }}</span>
+                {% endif %}
+                {% endif %}
+                </div>
+                 
+                <h5><a href="{{ article.url }}">{{ article.title }}</a></h5>
+
+                <div class="author">
+                  {% if section.settings.blog_author_enable %}<span>{{ article.author }}</span>{% endif %}
+                </div>
+
+                {% if section.settings.blog_description %}
+                <div class="post_cnt"><p>{{ article.content | strip_html | truncate: 100 }}</p>
+               </div>
+                {% endif %}
+                 {% if section.settings.btn != blank %}
+                  <a href="{{ article.url }}" class="blogread">{{ section.settings.btn }}</a>
+                {% endif %}
+                
+                </div>
+              </div>
+        </div>
+        {% else %}
+        {% for i in (1..2) %}
+           <div class="articleblog">
+          <div class="blogbdr">
+            <div class="home-blog-image col-sm-6 col-xs-12">
+              {% comment %}{{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}{% endcomment %}
+              <img src="https://dummyimage.com/1170x648/f8e0e0" class="img-responsive center-block" />
+            </div>
+            </div>
+              <div class="blogdes col-sm-6 col-xs-12">
+                <div class="dattime">
+                  <time><span class="date">02 Apr, 2020</span></time>
+                </div>
+               <h5><a href="#">simplae post {{ i }}</a></h5>
+                <div class="post_cnt"><p>Aliquam dapibus vehicula nulla nec maximus. Nunc elementum leo varius dui maximus interdum.</p></div>
+                <a href="#" class="blogread">Read more</a>
+                
+                </div>
+              </div>
+        
+          
+    {% endfor %}
+
+        {% endfor %}
+        </div>
+      </div>
+      <div class="blogslide slidebtn">
+        <a class="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a><a class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>  
+      </div>
+
+</div>
+
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+var articleblog = $(".owlblog");
+articleblog.owlCarousel({
+  itemsCustom : [
+  [0, 1],
+  [600, 2],
+  [768, 1],
+  [992, 1],
+  [1200, 2],
+  [1410, 2]
+],
+navigation : false,
+pagination:false
+});
+// Custom Navigation Events
+$(".blogslide .next").click(function(){
+  articleblog.trigger('owl.next');
+})
+$(".blogslide .prev").click(function(){
+  articleblog.trigger('owl.prev');
+}) 
+});
+</script>
+  
+
+{% schema %}
+{
+"name": "Blog Post",
+"settings": [
+{
+"type": "text",
+"id": "title",
+"label": "Heading"
+},
+{
+"type": "blog",
+"id": "pick_featured_blog",
+"label": "Select blog"
+},
+{
+"type": "checkbox",
+"id": "show_featured_date",
+"label": "Show date"
+},
+{
+"type": "checkbox",
+"id": "blog_author_enable",
+"label": "Show Author"
+},
+{
+"type": "checkbox",
+"id": "blog_comment",
+"label": "Show Comment"
+},
+{
+"type": "checkbox",
+"id": "blog_description",
+"label": "Show description"
+},
+{
+"type": "text",
+"id": "btn",
+"label": "Link",
+"default": "Read more"
+}
+
+],
+"presets": [
+{
+"name": "Blog Post",
+"category": "blog"
+}
+]
+}
+{% endschema %}
+

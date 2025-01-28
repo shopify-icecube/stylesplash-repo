@@ -1,0 +1,25 @@
+<!-- /snippets/collection-sidebar.liquid -->
+
+<div class="collection_sidebar">
+  {% section 'sidebar-category' %}
+  <div class="filbr">
+  <h1 class="leftheading"><span>filter</span><button type="button" class="toggle collapsed pull-right hidden-sm hidden-md hidden-lg" data-toggle="collapse" data-target="#xsfilter"></button></h1>
+  <div class="collapse footer-collapse" id="xsfilter">
+  {% if current_tags == blank %}
+  {% assign has_refined = false %} 
+  {% else %}
+  {% assign has_refined = true %} 
+  {% endif %}
+    
+    <div class="sidebar-block">
+     {% section 'sidebar-colors' %}
+     {% section 'sidebar-tag-filters' %}
+    </div>
+    <div class="refined-widgets text-right">
+      <a href="javascript:void(0)" class="clear-all btn" {% if has_refined == false %}style="display:none"{% endif %}>
+        Clear All
+      </a>
+    </div>
+  </div>
+  </div>
+</div>

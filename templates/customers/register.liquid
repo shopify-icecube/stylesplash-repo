@@ -1,0 +1,33 @@
+<div class="container">  
+  <div class="row">
+  <div class="col-xs-12">
+  <h1 class="heading text-center"><span class="hspan"><span>{{ 'customer.register.title' | t }}</span></span></h1>
+<div class="register-form">
+    {% form 'create_customer' %}
+
+      {{ form.errors | default_errors }}
+<div class="grid__item">
+      <label class="col-sm-2 col-lg-3 col-md-3 col-xs-12 text-right" for="FirstName">{{ 'customer.register.first_name' | t }}</label>
+      <input class="col-sm-9 col-lg-7 col-md-7 col-xs-12" type="text" name="customer[first_name]" id="FirstName" placeholder="{{ 'customer.register.first_name' | t }}" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autocapitalize="words" autofocus><div class="col-md-3 col-md-3 col-sm-1"></div>
+</div>
+<div class="grid__item">
+      <label class="col-sm-2 col-lg-3 col-md-3 col-xs-12 text-right" for="LastName">{{ 'customer.register.last_name' | t }}</label>
+      <input class="col-sm-9 col-lg-7 col-md-7 col-xs-12" type="text" name="customer[last_name]" id="LastName" placeholder="{{ 'customer.register.last_name' | t }}" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} autocapitalize="words"><div class="col-md-3 col-md-3 col-sm-1"></div>
+</div>
+<div class="grid__item">
+      <label class="col-sm-2 col-lg-3 col-md-3 col-xs-12 text-right" for="Email">{{ 'customer.register.email' | t }}</label>
+      <input class="col-sm-9 col-lg-7 col-md-7 col-xs-12" type="email" name="customer[email]" id="Email" placeholder="{{ 'customer.register.email' | t }}" {% if form.errors contains "email" %} class="error"{% elsif form.email %} value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off"><div class="col-md-3 col-md-3 col-sm-1"></div>
+</div>
+<div class="grid__item">
+      <label class="col-sm-2 col-lg-3 col-md-3 col-xs-12 text-right" for="CreatePassword">{{ 'customer.register.password' | t }}</label>
+      <input class="col-sm-9 col-lg-7 col-md-7 col-xs-12" type="password" name="customer[password]" id="CreatePassword" placeholder="{{ 'customer.register.password' | t }}" {% if form.errors contains "password" %} class="error"{% endif %}><div class="col-md-3 col-md-3 col-sm-1"></div>
+</div>
+      <p class="text-center rbtn">
+        <input type="submit" value="{{ 'customer.register.submit' | t }}" class="btn">
+      </p>
+      <a href="{{ shop.url }}" class="retstore"><i class="fa fa-angle-left"></i>&nbsp;{{ 'customer.register.cancel' | t }}</a>
+    {% endform %}
+</div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,103 @@
+{% unless grid_item_width  %}
+{% assign grid_item_width = 'wide--one-third large--one-third medium-down--one-half' %}
+{% endunless %}
+{% if template contains 'product' %}
+{% assign grid_item_width = '' %}
+{% endif %}
+{% unless current_collection == blank %}
+{% assign current_collection = collection %}
+{% endunless %}
+{% assign on_sale = false %}
+{% assign sale_text = 'products.product.sale' | t %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+{% assign sold_out = true %}
+{% assign sold_out_text = 'products.product.sold_out' | t %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+<div class="col-xs-12 item-row  {{grid_item_width}}{% if sold_out %} sold-out{% endif %}{% if on_sale %} on-sale{% endif %}" id="product-{{ product.id }}" {% if template contains 'index' %} {% if forloop.index > section.settings.total_products_load %} style="display:none"  data-wow-duration="1{{ forloop.index }}" {% endif %}{% endif %}>
+<div class="product-container">  
+
+<div class="imgblock col-xs-5">
+{% if product.images.size > 1 %}   
+<a href="{{ product.url }}"><img class="img-responsive center-block" src="{{ product.images.first | product_img_url: 'large' }}" alt="{{ product.images.first.alt | escape }}" /></a>
+<a href="{{ product.url }}"><img src="{{ product.images[1] | img_url: 'large' }}" class="second-img featured-image img-responsive center-block" alt="{{ product.images[1].alt | escape }}"> </a>
+{% else %}
+<a href="{{ product.url }}"><img src="{{ product.featured_image.src | img_url: 'large' }}" class="featured-image img-responsive center-block" alt="{{ product.featured_image.alt | escape }}"></a>
+{% endif %}
+
+
+  <a href="{{ product.url | within: collection }}">    
+    {% unless sold_out %}
+    {% if on_sale and settings.collections_show_sale_circle %}
+    <span class="sale">{{ 'products.product.sale' | t }}</span>
+    {% endif %}
+    {% endunless %}
+    {% if sold_out and settings.collections_show_sold_out_circle %}
+    <span class="psold-out">{{ 'products.product.sold_out' | t }}</span>
+    {% endif %}
+  </a>
+
+</div>
+
+    <div class="wbproductdes text-left col-xs-7">
+
+
+
+
+      
+      <h5><a href="{{ product.url | within: collection }}" class="grid-link__title">{{ product.title }}</a></h5>
+      
+        <div class="product_price">
+          {% capture price %}<span class="Bold-theme-hook-DO-NOT-DELETE bold_product_price" data-override-value-set="1" data-override-value="{{ product.price }}" style="display:none !important;"></span>{{ product.price | money }}{% endcapture %}
+          <span class="grid-link__org_price">
+          {% if product.price_varies %}{{ price }}{% else %}{{ price }}{% endif %}
+          </span>
+          {% if on_sale %}
+          <span class="dis-price">
+            <span class="Bold-theme-hook-DO-NOT-DELETE bold_product_compare_price" data-override-value-set="1" data-override-value="{{ product.compare_at_price }}" style="display:none !important;">
+            </span><span class="Bold-theme-hook-DO-NOT-DELETE bold_product_compare_price" data-override-value-set="1" data-override-value="{{ product.compare_at_price }}" style="display:none !important;"></span>{{ product.compare_at_price | money }}
+          </span>
+          {% endif %}
+        </div>
+
+        <div class="rateop"><div class="shopify-product-reviews-badge" data-id="{{ product.id }}"></div></div>
+
+        <p class="thumbdes">{{ product.description | strip_html | truncate: 80 }}</p>
+
+        {% include 'item-swatch' %}
+        <div class="button-group">
+          
+
+          {% if settings.enable_add_cart %}
+          <div class="addcart">
+            {% if product.available %}
+            <form  action="/cart/add" method="post" class="variants clearfix" id="cart-form-{{ product.id }}">
+              <input type="hidden" name="id" value="{{ product.variants[0].id }}" />
+               <a class="add-cart-btn" title="{{ 'products.product.cart' | t }}">{% include 'icon-cart' %}</a>
+            </form>
+            {% else %}
+             <div class="sold_icon disabled" title="{{ 'products.product.sold_out' | t }}">{% include 'icon-cart' %}</div>
+            {% endif %}
+          </div>
+          {% endif %}
+
+          {% if settings.enable_wishlist %}
+            {% include 'wishlist-icon' %}
+          {% endif %}
+
+          {% if settings.enable_quick_view %}
+          <a href="javascript:void(0)" id="{{ product.handle }}" class="quick-view-text" title="{{ 'products.product.quick' | t }}">{% include 'icon-quick' %}</a>
+          {% endif %}
+        </div>
+
+          {% if settings.count_down_enable and settings.count_down_collections %}
+      {% assign dealTime = settings.home_productdeal_time | split: ' ' | join: ' ' | split: ' ' %}
+      {% include 'deal-snippet' %}
+      {% endif %}
+       
+  </div>
+</div>
+</div>

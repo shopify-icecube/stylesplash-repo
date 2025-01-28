@@ -1,0 +1,163 @@
+<div data-section-id="{{ section.id }}" data-section-type="testimonial" class="testimonial container">
+      <h1 class="heading text-center"><span class="hspan"><span>{{ section.settings.title }}</span></span></h1>
+  {% if section.blocks.size > 0 %}
+    <div class="quotes-wrapper">
+      <div class="testi owl-carousel owl-theme">
+        {% for block in section.blocks %}
+          <div class="testitem quotes-slide--{{ block.id }}" {{ block.shopify_attributes }}>
+            <div class="quotes-slider__text text-center">
+              <img class="img-responsive center-block" src="{{ block.settings.image | img_url: '120x120' }}" alt="{{ block.settings.image.alt | escape }}">
+               {% if block.settings.quote != blank %}
+                <p>{{ block.settings.quote }}</p>
+              {% endif %}
+              <div class="testibox">
+                {% if block.settings.author != blank %}
+                  <h4>{{ block.settings.author | escape }}</h4>
+                {% endif %}
+                <h5>{{ block.settings.developer | escape }}</h5>
+              </div>
+              
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  {% endif %}
+
+  {% if section.blocks.size == 0 %}
+    {% include 'no-blocks' %}
+  {% endif %}
+</div>
+
+
+  <script>
+$(document).ready(function(){
+
+var articleblog = $(".testi");
+articleblog.owlCarousel({
+  itemsCustom : [
+  [0, 1]
+],
+autoPlay: true,
+autoplaySpeed: 5000,
+navigation : false,
+pagination:false
+});
+
+});
+  </script>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Testimonials",
+      "de": "Testimonials",
+      "fr": "Témoignages"
+    },
+    "class": "index-section",
+    "max_blocks": 9,
+    "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Top Heading",
+      "default": "Testimonial"
+    }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": {
+          "en": "Image",
+          "de": "Foto",
+          "fr": "Image"
+        },
+        "type": "quote",
+        "name": {
+          "en": "Testimonial",
+          "de": "Testimonial",
+          "fr": "Témoignages"
+        },
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": {
+              "en": "Image",
+              "de": "Foto",
+              "fr": "Image"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "quote",
+            "label": {
+              "en": "Text",
+              "de": "Text",
+              "fr": "Texte"
+            },
+            "default": {
+              "en": "<p>Add customer reviews and testimonials to showcase your store’s happy customers.</p>",
+              "de": "<p>Kunden-Reviews und Testimonials, die Kundenzufriedenheit beweisen.</p>",
+              "fr": "<p>Ajoutez des avis et témoignages pour mettre en avant vos clients satisfaits.</p>"
+            }
+          },
+          {
+            "type": "text",
+            "id": "author",
+            "label": {
+              "en": "Author",
+              "de": "Autor",
+              "fr": "Auteur"
+            },
+            "default": {
+              "en": "Author's name",
+              "de": "Name des Autors",
+              "fr": "Nom de l'auteur"
+            }
+          },
+          {
+            "type": "text",
+            "id": "developer",
+            "label": {
+              "en": "field",
+              "de": "field",
+              "fr": "field"
+            },
+            "default": {
+              "en": "developer",
+              "de": "developer",
+              "fr": "developer"
+            }
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Testimonials",
+          "de": "Testimonials",
+          "fr": "Témoignages"
+        },
+        "category": {
+          "en": "Text",
+          "de": "Text",
+          "fr": "Texte"
+        },
+        "blocks": [
+          {
+            "type": "quote"
+          },
+          {
+            "type": "quote"
+          },
+          {
+            "type": "quote"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

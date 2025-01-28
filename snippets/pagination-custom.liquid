@@ -1,0 +1,10 @@
+{% if settings.collection_infinite_scrolling %}
+	{% if paginate.next %}
+    <div class="infinite-scrolling">
+      <a href="{{ paginate.next.url }}" title="Load more..." class="btn">Show more</a>  
+      <a href="#" class="disabled btn" style="display:none" title="Load more...">No more product </a>  
+    </div>
+	{% endif %}
+{% else %}
+{% include 'pagination' %}
+{% endif %}

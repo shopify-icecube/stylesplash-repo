@@ -1,0 +1,146 @@
+<div data-section-id="{{ section.id }}"  data-section-type="onsale" class="onsale">
+<div class="allbgc container">   
+
+ {%- assign collection = collections[section.settings.collection] -%}
+ {%- assign limit = section.settings.grid | times: section.settings.rows -%}  
+  {%- assign tp = section.settings.total_products  -%}                
+          {% if section.settings.title != blank %}
+          <h1 class="heading text-center"><span class="hspan"><span>{{ section.settings.title }}</span></span></h1>
+          {% endif %} 
+            
+       {% case section.settings.grid %}
+            {% when '2' %}
+            {%- assign grid_item_width = 'wide--one-half post-large--one-half large--one-half medium--one-half small-grid__item' -%}
+            {% when '3' %}
+            {%- assign grid_item_width = 'wide--one-third post-large--one-third large--one-third medium--one-third small-grid__item' -%}
+            {% when '4' %}
+            {%- assign grid_item_width = 'wide--one-quarter post-large--one-quarter large--one-quarter medium--one-half small-grid__item' -%}
+            {% when '5' %}
+            {%- assign grid_item_width = 'wide--one-fifth post-large--one-fifth large--one-third medium--one-third small-grid__item' -%}            
+            {% endcase %}
+        <div class="row prodm">
+      {% assign grid_item_width = ' ' %} 
+       <ul class="owl-best {{ section.id }} owl-carousel owl-theme">
+        {% assign num_row = section.settings.num_topb | times: 1 %}
+        {% assign temp = 0 %}
+
+        {% if collection.products.size < 4 %}
+                  {% for product in collection.products %}
+                 <ul class="twopro">
+                    {% include 'product-grid-item', grid_item_width:grid_item_width %}
+                </ul>
+                 {% else %}
+                 {% comment %}dummy product{% endcomment %}
+               {% for i in (1..8) %}
+                  <div class="col-xs-12 item-row">
+                    <div class="product-container">
+                      <div class="imgblock">
+                      <a href="#">
+                          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                          {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                      </a>
+                      </div>
+                    <div class="wbproductdes text-center"> 
+                      <h5><a href="{{ product.url | within: collection }}" class="grid-link__title">your product's name</a></h5>
+                      <div class="grid-link__meta">
+                      <div class="product_price"> <span class="money" data-currency-usd="$320.00">$0.00</span> </div>
+                      <del class="grid-link__sale_price"><span class="money" data-currency-usd="$756.00">$0.00</span></del> </div>
+                    </div>
+                    </div>
+                  </div>
+                  {% endfor %} 
+                {% endfor %}
+
+
+        {% else %}
+            {% for product in collection.products %}
+                {% if temp == 0 %}
+                    <ul class="twopro">
+                {% endif %}
+
+                {% include 'product-grid-item', grid_item_width:grid_item_width %}
+                {% assign temp = temp | plus: 1 %}
+
+                {% if temp == num_row %}
+                    </ul>
+
+                    {% assign temp = 0 %}
+                {% endif %}         
+            {% endfor %}
+        {% endif %}
+
+      </ul>  
+
+       
+      
+    </div>
+
+<div class="owl-bestpro slidebtn">
+      <a class="prev"><i class="fa fa-angle-left" ></i></a><a class="next"><i class="fa fa-angle-right" ></i></a>
+      </div> 
+</div>
+</div>  
+  
+<script type="text/javascript">
+  $(document).ready(function(){
+    var article_item = $(".owl-best.{{ section.id }}");
+    article_item.owlCarousel({
+      itemsCustom : [
+        [0, 1],
+        [320, 2],
+        [600, 3],
+        [768, 3],
+        [992, 3],
+        [1200, 4],
+        [1410, 4],
+        [1590, 4]
+      ],
+      navigation : false,
+      pagination:false
+    });
+
+    // Custom Navigation Events
+    $(".owl-bestpro .next").click(function(){
+      article_item.trigger('owl.next');
+    })
+    $(".owl-bestpro .prev").click(function(){
+      article_item.trigger('owl.prev');
+    }) 
+  });
+</script>
+  
+{% schema %}
+{
+  "name": "Onsale",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "On sale"
+    },
+    {
+      "type": "text",
+      "id": "num_topb",
+      "label": "No. of row",
+      "default": "1"
+    },
+    {
+      "id": "collection",
+      "type": "collection",
+      "label": "Collection"
+    }  
+  ],
+  "presets": [
+    {
+     "name": "Onsale",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+

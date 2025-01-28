@@ -1,0 +1,18 @@
+{% if template == 'index' %}
+<div class="" itemscope itemtype="http://schema.org/Organization">
+  {% else %}
+  <div class="" itemscope itemtype="http://schema.org/Organization">
+    {% endif %}
+     {% if settings.logo_use_image %}
+    <a href="/" style="max-width: {{ settings.logo_max_width }}px;">
+      <img class="normal-logo" src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
+    </a>
+    {% else %}
+    <a href="/" class="logo_name">{{ shop.name }}</a>
+    {% endif %}
+    {% if template == 'index' %}
+    </div>
+  {% else %}
+  </div>
+
+{% endif %}   

@@ -1,0 +1,63 @@
+{% if settings.display_megamenu %}
+{% assign items_list = settings.megamenu_items | split:"," | strip | handleize %}
+{% endif %}
+
+<div class="snavb">
+<div class="site-nav">
+  {% for link in linklists.main-menu.links %}                
+  {% assign i = forloop.index | downcase %}
+  {% assign cat = link.title | handleize %}
+
+  {% assign child_list_handle = link.title | handleize %}
+
+  <li {% if linklists[child_list_handle] != empty %} class="level1 hovermenu dropdown {% if settings.display_megamenu and items_list contains cat %}mega-menu {% else %}simple-menu{% endif %}" {% else%} class="level1" {% endif %}>
+    <a class="{% if link.active %}current{% endif %} sitemenus" href="{{ link.url }}">
+      {{ link.title | escape}}
+      {% if linklists[child_list_handle] != empty  %}<i class="fa fa-angle-down pull-right"></i>{% endif %}
+    </a> 	    
+    {% if settings.display_megamenu and items_list contains cat %}
+    <div class="site-nav-dropdown">
+      {% include 'mega-menu' %}
+    </div>  
+    {% else %}
+    {% comment %} normal menu {% endcomment %}
+    <ul class="site-nav-dropdown">
+      {% for childlink in linklists[child_list_handle].links %}
+      <li {% if linklists[childlink.handle] != empty %}class="dropdown"{% endif %}>                    
+        <a href="{{ childlink.url }}" class="{% if childlink.active %}current{% endif %}">               
+          <span>               
+            {{ childlink.title | escape }}                
+          </span>
+          {% if linklists[childlink.handle] != empty %}<i class="fa fa-angle-right"></i>{% endif %}
+        </a>
+        <ul class="site-nav-dropdown1">
+          {% for childlink2 in linklists[childlink.handle].links %}
+          <li {% if linklists[childlink2.handle] != empty %}class="dropdown"{% endif %}>                        
+            <a href="{{ childlink2.url }}" class="{% if childlink2.active %}current{% endif %}">                     
+              <span>                      
+                {{ childlink2.title | escape }}                     
+              </span>
+              {% if linklists[childlink2.handle] != empty  %}<i class="fa fa-angle-right"></i>{% endif %}
+            </a>
+            <ul class="site-nav-dropdown">
+              {% for childlink3 in linklists[childlink2.handle].links %}
+              <li>                            
+                <a href="{{ childlink3.url }}" class="{% if link.active %}current{% endif %}">                         
+                  <span>                           
+                    {{ childlink3.title | escape }}                           
+                  </span>                          
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </li>
+  {% endfor %}
+</div>
+</div>

@@ -1,0 +1,124 @@
+<div class="container">
+  <div class="row logoslide prodm">
+  {% if section.blocks.size > 0 %}
+     <ul class="logo-bar{% if section.settings.title_enable %} logo-bar--large{% endif %} owl-theme owl-carousel" id="logo-slider">
+      {% for block in section.blocks %}
+        <li class="col-xs-12 logo-bar__item{% if section.settings.title_enable %} logo-bar__item--large{% endif %}">
+          {% if block.settings.link != blank %}
+            <a href="{{ block.settings.link }}" class="logo-bar__link">
+          {% endif %}
+          {% if block.settings.image != blank %}
+            {{ block.settings.image | img_url: '225x150', scale: 2 | img_tag: block.settings.image.alt, 'logo-bar__image' }}
+          {% else %}
+           <img class="img-responsive center-block" src="https://dummyimage.com/225x150/f8e0e0">
+          {% endif %}
+          {% if block.settings.link != blank %}</a>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  {% if section.blocks.size == 0 %}
+    {% include 'no-blocks' %}
+  {% endif %}
+</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    var article_item = $("#logo-slider");
+    article_item.owlCarousel({
+      itemsCustom : [
+        [0, 1],
+        [320, 2],
+        [380, 3],
+        [600, 4],
+        [768, 5],
+        [992, 5],
+        [1200, 6],
+        [1410, 7],
+        [1590, 8]
+      ],
+      autoPlay: 4000,
+      navigation : false,
+      pagination:false
+    });
+
+    // Custom Navigation Events
+    $(".owl-logobtn .next").click(function(){
+      article_item.trigger('owl.next');
+    })
+    $(".owl-logobtn .prev").click(function(){
+      article_item.trigger('owl.prev');
+    }) 
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "our brand",
+    "class": "index-section",
+    "max_blocks": 20,
+    "blocks": [
+      {
+        "type": "logo_image",
+        "name": {
+          "en": "Logo",
+          "de": "Logo",
+          "fr": "Logo"
+        },
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": {
+              "en": "Image",
+              "de": "Foto",
+              "fr": "Image"
+            }
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": {
+              "en": "Link",
+              "de": "Link",
+              "fr": "Lien"
+            },
+            "info": {
+              "en": "Optional",
+              "de": "Optional",
+              "fr": "Facultatif"
+            }
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Logo list",
+          "de": "Logo-Liste",
+          "fr": "Liste de logos"
+        },
+        "category": {
+          "en": "Image",
+          "de": "Foto",
+          "fr": "Image"
+        },
+        "blocks": [
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

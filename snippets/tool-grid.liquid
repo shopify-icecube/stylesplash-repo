@@ -1,0 +1,59 @@
+  <div class="toolbar row">
+    {% if settings.collections_view_enable %}
+    <div class="view-mode col-md-5 col-sm-4 col-xs-4">
+      <a class="grid active text-center" href="grid" title="{{ 'collections.general.grid_view' | t }}">{% include 'icon-grid' %}</a>  
+      <a class="list text-center" href="list" title="{{ 'collections.general.list_view' | t }}" >{% include 'icon-list' %}</a>  
+    </div> 
+    {% endif %}
+    {% if settings.collections_sort_enable %}
+  <div class="filter-sortby col-md-7 col-sm-8 col-xs-8 text-right">
+    <label for="sort-by">{{ 'collections.sorting.title' | t }}</label> 
+    <input type="text" id="sort-by">
+    <div class="sorting-section">
+    <button class="btn dropdown-toggle" data-toggle="dropdown">
+      <i class="icon-exchange"></i>
+      <span>{{ 'collections.sorting.featured' | t }}</span>
+      <i class="icon-chevron-down"></i>
+    </button>
+
+    <ul class="dropdown-menu" role="menu">
+      <li class="active"><a href="manual">{{ 'collections.sorting.featured' | t }}</a></li>
+      <li><a href="price-ascending">{{ 'collections.sorting.price_ascending' | t }}</a></li>
+      <li><a href="price-descending">{{ 'collections.sorting.price_descending' | t }}</a></li>
+      <li><a href="title-ascending">{{ 'collections.sorting.az' | t }}</a></li>
+      <li><a href="title-descending">{{ 'collections.sorting.za' | t }}</a></li>
+      <li><a href="created-ascending">{{ 'collections.sorting.date_ascending' | t }}</a></li>
+      <li><a href="created-descending">{{ 'collections.sorting.date_descending' | t }}</a></li>
+      <li><a href="best-selling">{{ 'collections.sorting.best_selling' | t }}</a></li>
+    </ul>
+    </div>
+  </div>
+  <div class="filter-show">
+    <label>{{ 'collections.toolbar.show' | t }}</label>
+    <div class="pages_list">
+    <button class="btn dropdown-toggle" data-toggle="dropdown">
+      <i class="icon-exchange"></i>
+      {% if paginate.page_size != 50 %}
+      <span>{{paginate.page_size}}</span>
+      {% else %}
+      <span>{{ 'collections.toolbar.all' | t }}</span>
+      {% endif %}
+      <i class="icon-chevron-down"></i>
+    </button>
+
+    <ul class="dropdown-menu" role="menu">
+      {% if settings.collection_results_per_page != blank %}
+      {% assign product_per_page = settings.collection_results_per_page %}
+      {% else %}
+      {% assign product_per_page = 8 %}
+      {% endif %}
+      {% assign current_page_size = paginate.page_size %}
+      <li {% if current_page_size == 8 %} class="active" {% endif %}><a href="{{ product_per_page }}">{{ product_per_page }}</a></li>
+      <li {% if current_page_size == 24 %} class="active" {% endif %}><a href="24">24</a></li>
+      <li {% if current_page_size == 36 %} class="active" {% endif %}><a href="36">36</a></li>
+      <li {% if current_page_size == 50 %} class="active" {% endif %}><a href="all">{{ 'collections.toolbar.all' | t }}</a></li>         
+    </ul>
+    </div>
+  </div>
+  {% endif %}
+</div>

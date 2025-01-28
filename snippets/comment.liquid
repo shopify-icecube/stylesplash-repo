@@ -1,0 +1,15 @@
+{% comment %}
+
+  This snippet generates the structure of a comment.
+  It is used to show not only recent comments, but also comments that were
+  just published but not yet approved.
+
+  More information:
+   - http://docs.shopify.com/themes/liquid-variables/comment
+
+{% endcomment %}
+
+
+   <h5><i class="fa fa-calendar"></i>{{ article.published_at | date: "%d %B %Y" }}</h5>
+  <h6><i class="fa fa-user"></i>{{ comment.author }}</h6>
+<h2><i class="fa fa-comments-o"></i>{{ comment.content }}</h2>

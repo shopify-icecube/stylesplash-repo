@@ -1,0 +1,10 @@
+<div class="add-to-wishlist">     
+<div class="show">
+  <div class="default-wishbutton-{{ product.handle }} loading"><a class="add-in-wishlist-js" href="{{ product.handle | handleize }}" title="{{ 'products.product.wish' | t }}">
+  	{% include 'icon-pwish' %}</a></div>
+ <div class="loadding-wishbutton-{{ product.handle }} loading" style="display: none; pointer-events: none"><a class="add_to_wishlist" href="{{ product.handle | handleize }}" title="{{ 'products.product.wish' | t }}">
+ 	<i class="fa fa-circle-o-notch fa-spin"></i></a></div>
+  <div class="added-wishbutton-{{ product.handle }} loading" style="display: none;"><a class="added-wishlist add_to_wishlist" href="/pages/wishlist" title="{{ 'products.product.wish' | t }}">
+  	{% include 'icon-wish-fill' %}</a></div>
+</div>
+ </div>

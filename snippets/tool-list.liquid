@@ -1,0 +1,37 @@
+<header class="section-header section-header--large">
+ <div class="toolbar">
+  <div class="view-mode grid__item wide--four-tenths post-large--four-tenths large--four-tenths">
+    <label {% if settings.enable_multilang %}data-translate="collections.toolbar.view_as"{% endif %}>{{ 'collections.toolbar.view_as' | t }}</label>    
+    <a class="grid btn" href="grid" title="{{ 'collections.general.grid_view' | t }}"><span >{{ 'collections.general.grid_view' | t }}</span></a>  
+    <a class="list btn active" href="list" title="{{ 'collections.general.list_view' | t }}"><span>{{ 'collections.general.list_view' | t }}</span></a>  
+  </div>  
+  <div class="grid__item wide--eight-tenths post-large--eight-tenths large--eight-tenths">
+ <div class="filter-sortby grid__item wide--six-tenths post-large--six-tenths">
+    <label for="sort-by">{{ 'collections.sorting.title' | t }}</label> 
+   <input type="text" id="sort-by">
+    <button class="btn dropdown-toggle" data-toggle="dropdown">
+      <i class="icon-exchange"></i>
+      <span>{{ 'collections.sorting.featured' | t }}</span>
+      <i class="icon-chevron-down"></i>
+    </button>
+
+    <ul class="dropdown-menu" role="menu">
+      <li class="active"><a href="manual">{{ 'collections.sorting.featured' | t }}</a></li>
+      <li><a href="price-ascending">{{ 'collections.sorting.price_ascending' | t }}</a></li>
+      <li><a href="price-descending">{{ 'collections.sorting.price_descending' | t }}</a></li>
+      <li><a href="title-ascending">{{ 'collections.sorting.az' | t }}</a></li>
+      <li><a href="title-descending">{{ 'collections.sorting.za' | t }}</a></li>
+      <li><a href="created-ascending">{{ 'collections.sorting.date_ascending' | t }}</a></li>
+      <li><a href="created-descending">{{ 'collections.sorting.date_descending' | t }}</a></li>
+      <li><a href="best-selling">{{ 'collections.sorting.best_selling' | t }}</a></li>
+    </ul>
+  </div>
+   </div>
+     </div>
+</header>
+{% if collection.description != blank %}
+  <div class="rte rte--header">
+    {{ collection.description }}
+  </div>
+  <hr class="hr--clear hr--small">
+{% endif %}

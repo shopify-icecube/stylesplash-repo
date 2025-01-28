@@ -1,0 +1,113 @@
+<div class="container">
+    <div class="row deliveryinfo">
+  {% if section.settings.s_title %}
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <ul>
+    <li><span>{% include 'icon-support' %}</span></li>
+    <li class="text-left">
+    <h4>{{ section.settings.header_gift }}</h4>
+    </li>
+    </ul>
+  </div>
+  {% endif %}
+  {% if section.settings.sa_title %}
+  <div class="col-xs-12 col-sm-6 col-md-3 sborder">
+    <ul>
+    <li><span>{% include 'icon-moneys' %}</span></li>
+    <li class="text-left">
+    <h4>{{ section.settings.header_pay }}</h4>
+    </li>
+    </ul>
+  </div>
+  {% endif %}
+  {% if section.settings.sb_title %}
+  <div class="col-xs-12 col-sm-6 col-md-3 sborder">
+    <ul>
+    <li><span>{% include 'icon-ship' %}</span></li>
+    <li class="text-left">
+    <h4>{{ section.settings.header_support }}</h4>
+    </li>
+    </ul>
+  </div>
+  {% endif %}
+  {% if section.settings.sc_title %}
+  <div class="col-xs-12 col-sm-6 col-md-3 sborder">
+    <ul>
+    <li><span>{% include 'icon-gift' %}</span></li>
+    <li class="text-left">
+    <h4>{{ section.settings.header_ship }}</h4>
+    </li>
+    </ul>
+  </div>
+  {% endif %}
+</div>
+</div>
+  
+{% schema %}
+{
+  "name": "Service",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "s_title",
+      "label": "Service 1",
+      "default": true
+    },
+   {
+    "type": "text",
+    "id": "header_gift",
+    "label": "Heading",
+    "default": "24 X 7 free support"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "sa_title",
+      "label": "Service 2",
+      "default": true
+    },
+   {
+    "type": "text",
+    "id": "header_pay",
+    "label": "Heading",
+    "default": "Money Back Guarantee"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "sb_title",
+      "label": "Service 3",
+      "default": true
+    },
+   {
+    "type": "text",
+    "id": "header_support",
+    "label": "Heading",
+    "default": "Free World Shipping"
+    },
+
+    {
+      "type": "checkbox",
+      "id": "sc_title",
+      "label": "Service 4",
+      "default": true
+    },
+   {
+    "type": "text",
+    "id": "header_ship",
+    "label": "Heading",
+    "default": "Special Gift Cards"
+    }
+  ],
+  "presets": [
+    {
+     "name": "Service",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}

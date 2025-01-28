@@ -1,0 +1,75 @@
+<div class="slideright">
+<div data-section-id="{{ section.id }}">  
+  <div class="grid-uniform collectionItems s-panel">
+    <div class="loader wrloader"></div>
+    <ul class="owl-slider owl-carousel owl-theme">
+      {% if section.blocks.size > 0 %}      
+      {% for block in section.blocks %}
+      {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{% endif %}
+      {% if block.settings.image != blank %}
+      <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.title }}" />
+      {% else %}
+      {% comment %}{{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}{% endcomment %}
+      <img src="https://dummyimage.com/1920x644/f8e0e0" alt="{{ block.settings.title }}" />
+      {% endif%}           
+      {% if block.settings.link != blank %}</a>{% endif%}
+
+    {% endfor %}
+    {% endif %}
+      </ul>{% comment %}{% if block.settings.image == blank %}<img src="http://via.placeholder.com/1046x500" alt="{{ block.settings.title }}" />{% endif %}{% endcomment %}
+  </div>
+</div>
+</div>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var article_item = $(".owl-slider");
+    article_item.owlCarousel({
+      itemsCustom : [
+        [0, 1]
+      ],
+      navigation : false,
+      pagination:true
+    });
+ 
+  });
+</script>
+{% schema %}
+{
+"name": "Slideshow",
+"class": "index-section",
+"settings": [
+],
+ "blocks": [
+    {
+      "type": "Image",
+      "name": "Slideshow",
+      "settings": [ 
+ 		    {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Size: 1920x644"
+        },
+        {
+        "type": "url",
+        "id": "link",
+        "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "Image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

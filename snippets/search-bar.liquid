@@ -1,0 +1,8 @@
+<div id="SearchDrawer" class="search-page-form">
+    <form action="/search" method="get" role="search">
+      <input type="search" id="SearchInput" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}" class="search-bar__input">
+      <button type="submit">
+        <i class="fa fa-search"></i>
+      </button>
+    </form>
+</div>

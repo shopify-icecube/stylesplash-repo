@@ -1,0 +1,111 @@
+<div data-section-id="{{ section.id }}"  data-section-type="special" class="specialpd container">
+ {%- assign collection = collections[section.settings.collection] -%}
+ {%- assign limit = section.settings.grid | times: section.settings.rows -%}  
+  {%- assign tp = section.settings.total_products  -%}                
+         
+ {% if section.settings.title != blank %}
+<h1 class="heading text-center"><span class="hspan"><span>{{ section.settings.title }}</span></span></h1>
+{% endif %} 
+  		 {% case section.settings.grid %}
+            {% when '2' %}
+            {%- assign grid_item_width = 'wide--one-half post-large--one-half large--one-half medium--one-half small-grid__item' -%}
+            {% when '3' %}
+            {%- assign grid_item_width = 'wide--one-third post-large--one-third large--one-third medium--one-third small-grid__item' -%}
+            {% when '4' %}
+            {%- assign grid_item_width = 'wide--one-quarter post-large--one-quarter large--one-quarter medium--one-half small-grid__item' -%}
+            {% when '5' %}
+            {%- assign grid_item_width = 'wide--one-fifth post-large--one-fifth large--one-third medium--one-third small-grid__item' -%}            
+            {% endcase %}
+      {% assign grid_item_width = ' ' %}
+      <div class="row prodm">
+      <ul class="owl-spe {{ section.id }} owl-carousel owl-theme">
+            {% for product in collection.products %}
+                <ul class="twopro">
+                    {% include 'product-grid-item-custom', grid_item_width:grid_item_width %}
+                </ul>
+             {% else %}
+               {% for i in (1..8) %}
+                  <div class="col-xs-12 item-row">
+                    <div class="product-container">
+                      <div class="imgblock col-sm-6 col-xs-12">
+                      <a href="#">
+                          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                          {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                      </a>
+                      </div>
+                    <div class="wbproductdes text-left col-sm-6 col-xs-12"> 
+                      <h5><a href="{{ product.url | within: collection }}" class="grid-link__title">your product's name</a></h5>
+                      <div class="grid-link__meta">
+                      <div class="product_price"> <span class="money" data-currency-usd="$320.00">$0.00</span> </div>
+                      <del class="grid-link__sale_price"><span class="money" data-currency-usd="$756.00">$0.00</span></del> </div>
+                    </div>
+                    </div>
+                  </div>
+                  {% endfor %} 
+                {% endfor %}
+      </ul>
+  </div>  
+
+  <div class="owl-spebtn slidebtn">
+  <a class="prev"><i class="fa fa-angle-left" ></i></a><a class="next"><i class="fa fa-angle-right" ></i></a>
+  </div>
+
+  </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    var article_item = $(".owl-spe.{{ section.id }}");
+    article_item.owlCarousel({
+      itemsCustom : [
+        [0, 1],
+        [320, 1],
+        [450, 2],
+        [600, 1],
+        [768, 1],
+        [992, 1],
+        [1200, 2],
+        [1410, 2],
+        [1590, 2]
+      ],
+      navigation : false,
+      pagination:false
+    });
+
+    // Custom Navigation Events
+    $(".owl-spebtn .next").click(function(){
+      article_item.trigger('owl.next');
+    })
+    $(".owl-spebtn .prev").click(function(){
+      article_item.trigger('owl.prev');
+    }) 
+  });
+</script>
+  
+{% schema %}
+{
+  "name": "Special",
+  "class": "index-section",
+  "settings": [  
+	 {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "deal of the day"
+    },
+    {
+      "id": "collection",
+      "type": "collection",
+      "label": "Collection"
+    }  
+  ],
+  "presets": [
+    {
+     "name": "Special",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+

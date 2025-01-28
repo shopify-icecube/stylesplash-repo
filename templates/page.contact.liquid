@@ -1,0 +1,76 @@
+<div class="contback container">
+<div class="row">
+{% if settings.enable_contact_address %}
+  <div class="col-sm-4 col-xs-12 contp">
+  {% if settings.contact_phone %} 
+  <ul class="list-unstyled list-inline">
+    <h4>{{ settings.contact_module_contact_phonetitle }}</h4>
+  <li class=""><i class="{{settings.contact_icon_1}}"></i></li>
+  <li>
+      <p>  {{ settings.contact_phone1 }}<br>{{ settings.contact_phone2 }}</p>
+  </li>
+</ul>
+  {% endif %}
+  {% if settings.contact_module_email %}
+  <ul class="list-unstyled list-inline">
+    <h4>{{ settings.contact_module_contact_title }}</h4>
+  <li class=""><i class="{{settings.contact_icon_2}}"></i></li>
+  <li>
+      
+      <p> <a title="" href="">{{ settings.contact_module_email_1 }}</a><br><a title="" href="">{{ settings.contact_module_email2 }}</a></p>      
+  </li>
+</ul>
+  {% endif %}
+  {% if settings.contact_module_address %} 
+  <ul class="list-unstyled list-inline">
+    <h4>{{ settings.contact_module_address_title }}</h4>
+  <li class="address"><i class="{{settings.contact_icon_3}}"></i> </li>
+    <li>
+      
+      <p> {{ settings.contact_module_address1 }}<br /> {{ settings.contact_module_address2 }}<br />{{ settings.postcode }}</p> 
+  </li>
+</ul>
+  {% endif %}
+
+</div>
+
+{% endif %}
+
+{% if settings.enable_contact_section %}        
+<div class="contact-address col-sm-8 col-xs-12">
+    <div class="">
+            {% form 'contact' %}
+            {% if form.posted_successfully? %}
+            <p class="note form-success">
+              {{ 'contact.form.post_success' | t }}
+            </p>
+            {% endif %}
+            {{ form.errors | default_errors }}
+            {% assign name_attr = 'contact.form.name' | t | handle %}
+            <label for="ContactFormName" class="col-sm-3 col-xs-12 text-right">{{ 'contact.form.name' | t }}</label>
+            <input class="col-sm-9 col-xs-12" type="text" id="ContactFormName" name="contact[{{ name_attr }}]" placeholder="{{ 'contact.form.name' | t }}" autocapitalize="words" value="{% if form[name_attr] %}{{ form[name_attr] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+
+            <label for="ContactFormEmail" class="col-sm-3 col-xs-12 text-right">{{ 'contact.form.email' | t }}</label>
+            <input class="col-sm-9 col-xs-12" type="email" id="ContactFormEmail" name="contact[email]" placeholder="{{ 'contact.form.email' | t }}" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+
+            {% assign name_attr = 'contact.form.sub' | t | handle %}
+            <label for="ContactFormSub" class="col-sm-3 col-xs-12 text-right">{{ 'contact.form.sub' | t }}</label>
+            <input class="col-sm-9 col-xs-12" type="text" id="ContactFormSub" name="contact[{{ name_attr }}]" placeholder="{{ 'contact.form.sub' | t }}" autocapitalize="words" value="{% if form[name_attr] %}{{ form[name_attr] }}{% elsif customer %}{{ customer.subject }}{% endif %}">
+
+            <label for="ContactFormMessage" class="col-sm-3 col-xs-12 text-right">{{ 'contact.form.message' | t }}</label>
+            <textarea class="col-sm-9 col-xs-12" rows="7" id="ContactFormMessage" name="contact[body]" placeholder="{{ 'contact.form.message' | t }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+
+            <button type="submit" class="btn pull-right">{{ 'contact.form.send' | t }}</button>
+            {% endform %}     
+    </div>
+</div>
+  {% endif %}
+</div>
+
+
+<div class="row cmap">
+  {% if settings.enable_gmap %}
+  <div id="map">{{ settings.contact_iframe_code }} </div>
+  {% endif %}
+</div>
+</div>
